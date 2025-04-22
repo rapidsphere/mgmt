@@ -42,7 +42,6 @@ interface Asset {
   description: string;
   brand: string;
   purchaseDate: string;
-  cost: number;
   status: 'Active' | 'Inactive' | 'Maintenance';
 }
 
@@ -53,7 +52,6 @@ const assets: Asset[] = [
     description: 'Dell XPS 15',
     brand: 'Dell',
     purchaseDate: '2023-01-15',
-    cost: 1200,
     status: 'Active',
   },
   {
@@ -62,7 +60,6 @@ const assets: Asset[] = [
     description: 'Samsung 27" Curved',
     brand: 'Samsung',
     purchaseDate: '2023-03-20',
-    cost: 350,
     status: 'Active',
   },
   {
@@ -71,7 +68,6 @@ const assets: Asset[] = [
     description: 'Standing Desk Converter',
     brand: 'Vari',
     purchaseDate: '2022-11-10',
-    cost: 450,
     status: 'Active',
   },
 ];
@@ -87,9 +83,6 @@ const assetFormSchema = z.object({
     message: "Brand must be at least 2 characters.",
   }),
   purchaseDate: z.string().optional(),
-  cost: z.number().int().min(0, {
-    message: "Cost must be a positive number.",
-  }),
   status: z.enum(['Active', 'Inactive', 'Maintenance']),
 })
 
@@ -111,7 +104,6 @@ export default function AssetsListPage() {
       description: "",
       brand: "",
       purchaseDate: "",
-      cost: 0,
       status: 'Active',
     },
   })
@@ -124,7 +116,6 @@ export default function AssetsListPage() {
       description: values.description,
       brand: values.brand,
       purchaseDate: values.purchaseDate || '',
-      cost: values.cost,
       status: values.status,
     };
 
@@ -147,7 +138,6 @@ export default function AssetsListPage() {
             <TableHead className="border border-black">Description</TableHead>
             <TableHead className="border border-black">Brand</TableHead>
             <TableHead className="border border-black">Purchase Date</TableHead>
-            <TableHead className="border border-black">Cost</TableHead>
             <TableHead className="border border-black">Status</TableHead>
             <TableHead className="border border-black">Action</TableHead>
           </TableRow>
@@ -160,7 +150,6 @@ export default function AssetsListPage() {
               <TableCell className="border border-black">{asset.description}</TableCell>
               <TableCell className="border border-black">{asset.brand}</TableCell>
               <TableCell className="border border-black">{asset.purchaseDate}</TableCell>
-              <TableCell className="border border-black">${asset.cost}</TableCell>
               <TableCell className="border border-black">{asset.status}</TableCell>
               <TableCell className="border border-black">
                 <div className="flex items-center space-x-2">
@@ -242,23 +231,6 @@ export default function AssetsListPage() {
                         <Input
                           placeholder="Enter purchase date"
                           type="date"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cost"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Cost</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Input
-                          placeholder="Enter asset cost"
-                          type="number"
                           {...field}
                         />
                       </FormControl>
