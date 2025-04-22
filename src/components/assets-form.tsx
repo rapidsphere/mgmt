@@ -74,7 +74,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Name *</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset name" {...field} />
+                <Input placeholder="Enter asset name" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,7 +87,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Description *</FormLabel>
               <FormControl>
-                <Textarea placeholder="Enter asset description" {...field} />
+                <Textarea placeholder="Enter asset description" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,7 +100,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Asset Tag ID *</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset tag ID" {...field} />
+                <Input placeholder="Enter asset tag ID" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -113,7 +113,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Purchased From</FormLabel>
               <FormControl>
-                <Input placeholder="Enter vendor" {...field} />
+                <Input placeholder="Enter vendor" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -165,7 +165,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Brand</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset brand" {...field} />
+                <Input placeholder="Enter asset brand" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -178,7 +178,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Model</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset model" {...field} />
+                <Input placeholder="Enter asset model" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -191,7 +191,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Serial No</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset serial number" {...field} />
+                <Input placeholder="Enter asset serial number" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -204,7 +204,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Cost</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset cost" {...field} />
+                <Input placeholder="Enter asset cost" className="border border-black" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -217,7 +217,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             <FormItem>
               <FormLabel>Status</FormLabel>
               <Select>
-                 <SelectTrigger className="w-[180px]">
+                 <SelectTrigger className="w-[180px] border border-black">
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -237,4 +237,3 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
     </Form>
   );
 }
-

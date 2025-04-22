@@ -204,7 +204,7 @@ export default function AssetsListPage() {
                   <FormItem>
                     <FormLabel>Asset Tag ID</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter asset tag ID" {...field} />
+                      <Input placeholder="Enter asset tag ID" className="border border-black" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -217,7 +217,7 @@ export default function AssetsListPage() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter asset name" {...field} />
+                      <Input placeholder="Enter asset name" className="border border-black" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -230,7 +230,7 @@ export default function AssetsListPage() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Enter asset description" {...field} />
+                      <Textarea placeholder="Enter asset description" className="border border-black" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -243,7 +243,7 @@ export default function AssetsListPage() {
                   <FormItem>
                     <FormLabel>Brand</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter asset brand" {...field} />
+                      <Input placeholder="Enter asset brand" className="border border-black" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -295,7 +295,7 @@ export default function AssetsListPage() {
                   <FormItem>
                     <FormLabel>Cost</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter asset cost" type="number" {...field} />
+                      <Input placeholder="Enter asset cost" type="number" className="border border-black" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
