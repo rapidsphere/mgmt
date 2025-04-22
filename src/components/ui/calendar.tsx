@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+// Corrected import path to avoid the super expression error
+import { DayPicker } from 'react-day-picker';
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils"
@@ -76,3 +77,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
