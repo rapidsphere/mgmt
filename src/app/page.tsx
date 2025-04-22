@@ -1,6 +1,7 @@
 
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Wrench } from "lucide-react";
 
 export default function Home() {
   return (
@@ -21,7 +22,8 @@ export default function Home() {
             <CardTitle>Number of Assets</CardTitle>
             <CardDescription>Total number of assets managed.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex items-center gap-2">
+            <Wrench className="h-6 w-6 text-muted-foreground" />
             <p className="text-3xl font-bold">150</p>
           </CardContent>
         </Card>
@@ -29,3 +31,6 @@ export default function Home() {
     </div>
   );
 }
+
+
+    
