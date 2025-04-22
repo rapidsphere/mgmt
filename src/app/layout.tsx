@@ -44,7 +44,7 @@ export default function RootLayout({
                   </SidebarMenuButton>
                 ))}
               </Sidebar>
-              <main className="flex-1 p-2">
+              <main className="flex-1 sm:p-2">
                 {children}
               </main>
             </div>
