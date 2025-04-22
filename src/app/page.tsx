@@ -18,13 +18,13 @@ export default function Home() {
         </Card>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Number of Assets</CardTitle>
-            <CardDescription>Total number of assets managed.</CardDescription>
+          <CardHeader className="p-4">
+            <CardTitle className="text-lg">Number of Assets</CardTitle>
+            <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center gap-2">
-            <Wrench className="h-6 w-6 text-muted-foreground" />
-            <p className="text-3xl font-bold">150</p>
+          <CardContent className="flex items-center gap-2 p-4">
+            <Wrench className="h-5 w-5 text-muted-foreground" />
+            <p className="text-2xl font-bold">150</p>
           </CardContent>
         </Card>
       </div>
