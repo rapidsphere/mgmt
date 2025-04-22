@@ -10,7 +10,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,6 +33,9 @@ const assetSchema = z.object({
   warrantyInfo: z.string().optional(),
   maintenanceSchedule: z.string().optional(),
   notes: z.string().optional(),
+  cost: z.number().int().min(0, {
+    message: 'Cost must be a positive integer.',
+  }),
 });
 
 type AssetValues = z.infer<typeof assetSchema>;
@@ -48,6 +50,7 @@ export default function AssetPage() {
       warrantyInfo: '',
       maintenanceSchedule: '',
       notes: '',
+      cost: 0,
     },
   });
 
@@ -76,9 +79,6 @@ export default function AssetPage() {
                     <FormControl>
                       <Input placeholder="Enter asset name" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is the name of the asset.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -92,9 +92,6 @@ export default function AssetPage() {
                     <FormControl>
                       <Input placeholder="Enter asset type" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is the type of asset.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -106,11 +103,12 @@ export default function AssetPage() {
                   <FormItem>
                     <FormLabel>Purchase Date</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter purchase date" {...field} />
+                      <Input
+                        placeholder="Enter purchase date"
+                        type="date"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>
-                      The date when the asset was purchased.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -122,11 +120,11 @@ export default function AssetPage() {
                   <FormItem>
                     <FormLabel>Warranty Information</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter warranty information" {...field} />
+                      <Input
+                        placeholder="Enter warranty information"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>
-                      Details about the asset's warranty.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -143,9 +141,6 @@ export default function AssetPage() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      The schedule for the asset's maintenance.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -162,13 +157,27 @@ export default function AssetPage() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      Any additional notes about the asset.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+                            <FormField
+                                control={form.control}
+                                name="cost"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Cost</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Enter asset cost"
+                                                type="number"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
               <Button type="submit">Submit</Button>
             </form>
           </Form>

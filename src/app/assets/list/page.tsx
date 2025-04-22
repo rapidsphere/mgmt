@@ -87,7 +87,7 @@ const assetFormSchema = z.object({
     message: "Brand must be at least 2 characters.",
   }),
   purchaseDate: z.string().optional(),
-  cost: z.number().min(0, {
+  cost: z.number().int().min(0, {
     message: "Cost must be a positive number.",
   }),
   status: z.enum(['Active', 'Inactive', 'Maintenance']),
