@@ -100,6 +100,9 @@ export default function AssetsListPage() {
   const [open, setOpen] = useState(false);
   const { toast } = useToast()
 
+  const [editAsset, setEditAsset] = useState<Asset | null>(null);
+
+
   const handleDelete = (assetTagId: string) => {
     setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
   };
@@ -137,6 +140,17 @@ export default function AssetsListPage() {
     form.reset(); // Clear the form
   }
 
+  const handleEdit = (asset: Asset) => {
+    setEditAsset(asset);
+    form.setValue('name', asset.name);
+    form.setValue('description', asset.description);
+    form.setValue('brand', asset.brand);
+    form.setValue('purchaseDate', asset.purchaseDate);
+    form.setValue('cost', String(asset.cost)); // Convert cost to string
+    form.setValue('status', asset.status);
+    setOpen(true);
+  };
+
   return (
     <div className="container mx-auto py-10">
       <Table className="border border-black">
@@ -164,7 +178,7 @@ export default function AssetsListPage() {
               <TableCell className="border border-black">{asset.status}</TableCell>
               <TableCell className="border border-black">
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" onClick={() => handleEdit(asset)}>
                     <Edit className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="icon" onClick={() => handleDelete(asset.assetTagId)}>
@@ -185,9 +199,11 @@ export default function AssetsListPage() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[525px]">
           <DialogHeader>
-            <DialogTitle>Add New Asset</DialogTitle>
+            <DialogTitle>{editAsset ? "Edit Asset" : "Add New Asset"}</DialogTitle>
             <DialogDescription>
-              Create a new asset by filling out the form below.
+              {editAsset
+                ? "Edit the asset details by modifying the form below."
+                : "Create a new asset by filling out the form below."}
             </DialogDescription>
           </DialogHeader>
           <ScrollArea>
@@ -284,7 +300,7 @@ export default function AssetsListPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Add Asset</Button>
+                <Button type="submit">{editAsset ? "Update Asset" : "Add Asset"}</Button>
               </form>
             </Form>
           </ScrollArea>
