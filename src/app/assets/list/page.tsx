@@ -61,30 +61,30 @@ export default function AssetsListPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <Table>
+      <Table className="border border-black">
         <TableHeader>
           <TableRow>
-            <TableHead>Asset Tag ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Brand</TableHead>
-            <TableHead>Purchase Date</TableHead>
-            <TableHead>Cost</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead className="border border-black">Asset Tag ID</TableHead>
+            <TableHead className="border border-black">Name</TableHead>
+            <TableHead className="border border-black">Description</TableHead>
+            <TableHead className="border border-black">Brand</TableHead>
+            <TableHead className="border border-black">Purchase Date</TableHead>
+            <TableHead className="border border-black">Cost</TableHead>
+            <TableHead className="border border-black">Status</TableHead>
+            <TableHead className="border border-black">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {assetsList.map((asset, index) => (
             <TableRow key={index}>
-              <TableCell>{asset.assetTagId}</TableCell>
-              <TableCell>{asset.name}</TableCell>
-              <TableCell>{asset.description}</TableCell>
-              <TableCell>{asset.brand}</TableCell>
-              <TableCell>{asset.purchaseDate}</TableCell>
-              <TableCell>${asset.cost}</TableCell>
-              <TableCell>{asset.status}</TableCell>
-              <TableCell>
+              <TableCell className="border border-black">{asset.assetTagId}</TableCell>
+              <TableCell className="border border-black">{asset.name}</TableCell>
+              <TableCell className="border border-black">{asset.description}</TableCell>
+              <TableCell className="border border-black">{asset.brand}</TableCell>
+              <TableCell className="border border-black">{asset.purchaseDate}</TableCell>
+              <TableCell className="border border-black">${asset.cost}</TableCell>
+              <TableCell className="border border-black">{asset.status}</TableCell>
+              <TableCell className="border border-black">
                 <div className="flex items-center space-x-2">
                   <Button variant="ghost" size="icon">
                     <Edit className="h-4 w-4" />
@@ -101,4 +101,3 @@ export default function AssetsListPage() {
     </div>
   );
 }
-
