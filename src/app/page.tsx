@@ -41,7 +41,7 @@ export default function Home() {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
   const [isClient, setIsClient] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     setIsClient(true);
   }, []);
 
@@ -84,7 +84,7 @@ export default function Home() {
             <CardDescription className="text-sm">View asset maintenance and renewal dates. {formattedToday}</CardDescription>
           </CardHeader>
           <CardContent className="p-3 grid gap-2 text-sm">
-           {isClient ? <Calendar /> : null}
+            {isClient ? <Calendar /> : null}
           </CardContent>
         </Card>
 
@@ -95,24 +95,24 @@ export default function Home() {
           </CardHeader>
           <CardContent className="p-3">
             {isClient ? (
-            <ResponsiveContainerComponent width="100%" height={200}>
-              <PieChartComponent>
-                <PieComponent
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={() => null}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {data.map((entry, index) => (
-                    <CellComponent key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </PieComponent>
-              </PieChartComponent>
-            </ResponsiveContainerComponent>
+              <ResponsiveContainerComponent width="100%" height={200}>
+                <PieChartComponent>
+                  <PieComponent
+                    data={data}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={() => null}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {data.map((entry, index) => (
+                      <CellComponent key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </PieComponent>
+                </PieChartComponent>
+              </ResponsiveContainerComponent>
             ) : null}
             <div className="flex justify-center mt-2">
               {data.map((entry, index) => (
@@ -128,5 +128,3 @@ export default function Home() {
     </div>
   );
 }
-
-
