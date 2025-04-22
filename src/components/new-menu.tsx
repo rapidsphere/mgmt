@@ -2,10 +2,20 @@
 
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
+import {cn} from '@/lib/utils';
 
-export function NewMenu() {
+interface MenuItem {
+  label: string;
+  href: string;
+}
+
+interface NewMenuProps {
+  className?: string;
+}
+
+export function NewMenu({className}: NewMenuProps) {
   const pathname = usePathname();
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {label: 'Dashboard', href: '/'},
     {label: 'Asset List', href: '/assets/list'},
     {label: 'Add Asset', href: '/assets/create'},
@@ -15,15 +25,17 @@ export function NewMenu() {
   ];
 
   return (
-    <nav className="bg-secondary p-4">
+    <nav className={cn('bg-blue-100 p-4', className)}>
       <ul className="flex space-x-4">
         {menuItems.map(item => (
           <li key={item.href}>
             <Link
               href={item.href}
-              className={`text-lg font-semibold hover:text-primary ${
-                pathname === item.href ? 'text-primary' : ''
-              }`}
+              className={cn(
+                'text-lg font-semibold hover:text-primary',
+                pathname === item.href ? 'text-primary' : '',
+                'hover:bg-red-200 p-2 rounded-md transition-colors'
+              )}
             >
               {item.label}
             </Link>
