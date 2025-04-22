@@ -198,13 +198,13 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Asset Name</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Asset Name</FormLabel>
+                      <FormControl className="col-span-3">
                         <Input placeholder="Enter asset name" {...field} />
                       </FormControl>
-                      <FormDescription>This is the name of the asset.</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">This is the name of the asset.</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
@@ -212,13 +212,13 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="description"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Description</FormLabel>
+                      <FormControl className="col-span-3">
                         <Textarea placeholder="Enter asset description" {...field} />
                       </FormControl>
-                      <FormDescription>Details about the asset.</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">Details about the asset.</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
@@ -226,13 +226,13 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="brand"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Brand</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Brand</FormLabel>
+                      <FormControl className="col-span-3">
                         <Input placeholder="Enter asset brand" {...field} />
                       </FormControl>
-                      <FormDescription>The brand or manufacturer of the asset.</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">The brand or manufacturer of the asset.</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
@@ -240,17 +240,17 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="purchaseDate"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Purchase Date</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Purchase Date</FormLabel>
+                      <FormControl className="col-span-3">
                         <Input
                           placeholder="Enter purchase date"
                           type="date"
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>The date when the asset was purchased.</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">The date when the asset was purchased.</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
@@ -258,17 +258,17 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="cost"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cost</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Cost</FormLabel>
+                      <FormControl className="col-span-3">
                         <Input
                           placeholder="Enter asset cost"
                           type="number"
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>The cost of the asset.</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">The cost of the asset.</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
@@ -276,9 +276,9 @@ export default function AssetsListPage() {
                   control={form.control}
                   name="status"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Status</FormLabel>
-                      <FormControl>
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Status</FormLabel>
+                      <FormControl className="col-span-3">
                         <select {...field} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                           <option disabled value="">Select Status</option>
                           <option value="Active">Active</option>
@@ -286,8 +286,8 @@ export default function AssetsListPage() {
                           <option value="Maintenance">Maintenance</option>
                         </select>
                       </FormControl>
-                      <FormDescription>Current status of the asset</FormDescription>
-                      <FormMessage />
+                      <FormDescription className="col-span-4">Current status of the asset</FormDescription>
+                      <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
                 />
