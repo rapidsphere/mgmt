@@ -2,9 +2,10 @@
 
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Wrench, DollarSign } from "lucide-react";
+import { Wrench, DollarSign, ShoppingCart } from "lucide-react";
 import { format } from "date-fns";
 import dynamic from 'next/dynamic';
+import { cn } from "@/lib/utils";
 
 const PieChartComponent = dynamic(() => import('recharts').then(mod => mod.PieChart), {
   ssr: false,
@@ -40,12 +41,12 @@ export default function Home() {
 
   return (
     <div className="container mx-auto py-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <div className="w-full md:w-1/2 lg:w-1/4">
           <Card className="h-32">
-            <CardHeader className="flex flex-col space-y-1.5 p-3">
-              <CardTitle className="text-md">Number of Assets</CardTitle>
+            <CardHeader className="flex flex-col space-y-1.5 p-4">
+              <CardTitle className="text-lg">Number of Assets</CardTitle>
               <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
             </CardHeader>
             <CardContent className="flex items-center gap-2 p-3">
@@ -57,13 +58,26 @@ export default function Home() {
 
         <div className="w-full md:w-1/2 lg:w-1/4">
           <Card className="h-32">
-            <CardHeader className="flex flex-col space-y-1.5 p-3">
-              <CardTitle className="text-md">Value of Assets</CardTitle>
+            <CardHeader className="flex flex-col space-y-1.5 p-4">
+              <CardTitle className="text-lg">Value of Assets</CardTitle>
               <CardDescription className="text-sm">Total value of all assets.</CardDescription>
             </CardHeader>
             <CardContent className="flex items-center gap-2 p-3">
               <DollarSign className="h-4 w-4 text-muted-foreground" />
               <p className="text-xl font-bold">$500,000</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="w-full md:w-1/2 lg:w-1/4">
+          <Card className="h-32">
+            <CardHeader className="flex flex-col space-y-1.5 p-4">
+              <CardTitle className="text-lg">Purchase this fiscal year</CardTitle>
+              <CardDescription className="text-sm">Total assets purchased in {formattedToday}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex items-center gap-2 p-3">
+              <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+              <p className="text-xl font-bold">20</p>
             </CardContent>
           </Card>
         </div>
@@ -118,4 +132,5 @@ export default function Home() {
     </div>
   );
 }
+
 
