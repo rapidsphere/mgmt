@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import 'jspdf-autotable'; // Import jspdf-autotable to register the plugin
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useState, useEffect } from 'react';
