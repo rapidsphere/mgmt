@@ -38,7 +38,7 @@ const assetSchema = z.object({
 
 type AssetValues = z.infer<typeof assetSchema>;
 
-export default function AssetsPage() {
+export default function AssetPage() {
   const form = useForm<AssetValues>({
     resolver: zodResolver(assetSchema),
     defaultValues: {
@@ -59,9 +59,9 @@ export default function AssetsPage() {
     <div className="container mx-auto py-10">
       <Card>
         <CardHeader>
-          <CardTitle>Asset Details Form</CardTitle>
+          <CardTitle>Create Asset</CardTitle>
           <CardDescription>
-            Enter the details of the asset you want to manage.
+            Enter the details of the new asset.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -177,4 +177,3 @@ export default function AssetsPage() {
     </div>
   );
 }
-

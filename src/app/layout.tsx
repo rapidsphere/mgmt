@@ -1,13 +1,7 @@
-
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
-import { Sidebar } from "@/components/ui/sidebar";
-import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { sidebarItems } from "@/components/sidebar-items";
-import { Icons } from "@/components/icons";
-import SiteHeader from "@/components/site-header";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import {NewMenu} from '@/components/new-menu';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,27 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SidebarProvider>
-          <div className="flex flex-col min-h-screen">
-            <SiteHeader />
-            <div className="flex flex-1">
-              <Sidebar collapsible="icon">
-                {sidebarItems.map((item) => (
-                  <SidebarMenuButton key={item.href} href={item.href}>
-                    <item.icon className="mr-2 h-4 w-4" />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                ))}
-              </Sidebar>
-              <main className="flex-1 sm:p-2">
-                {children}
-              </main>
-            </div>
-          </div>
-        </SidebarProvider>
+        <div>
+          <NewMenu />
+          <main className="container mx-auto py-4">{children}</main>
+        </div>
       </body>
     </html>
   );
 }
-
-
