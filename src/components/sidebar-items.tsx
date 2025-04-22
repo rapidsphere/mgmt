@@ -17,4 +17,15 @@ export const sidebarItems = [
     icon: Icons.plus,
     label: "Add Asset",
   },
+  {
+    href: "/checkin",
+    icon: Icons.check,
+    label: "Check In",
+  },
+  {
+    href: "/checkout",
+    icon: Icons.arrowRight,
+    label: "Check Out",
+  },
 ];
+
