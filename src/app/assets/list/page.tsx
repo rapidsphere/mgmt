@@ -34,6 +34,8 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface Asset {
   assetTagId: string;
@@ -97,6 +99,7 @@ type AssetFormValues = z.infer<typeof assetFormSchema>
 export default function AssetsListPage() {
   const [assetsList, setAssetsList] = useState(assets);
   const [open, setOpen] = useState(false);
+  const { toast } = useToast()
 
   const handleDelete = (assetTagId: string) => {
     setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
@@ -115,8 +118,24 @@ export default function AssetsListPage() {
   })
 
   function onSubmit(values: AssetFormValues) {
-    console.log(values)
+    console.log(values);
+    const newAsset: Asset = {
+      assetTagId: `AST-${Math.floor(Math.random() * 1000)}`, // Generate a random ID
+      name: values.name,
+      description: values.description,
+      brand: values.brand,
+      purchaseDate: values.purchaseDate || '',
+      cost: values.cost,
+      status: values.status,
+    };
+
+    setAssetsList([...assetsList, newAsset]);
     setOpen(false);
+    toast({
+      title: "Asset added successfully!",
+      description: "Your asset has been added to the list.",
+    })
+    form.reset(); // Clear the form
   }
 
   return (
@@ -165,7 +184,7 @@ export default function AssetsListPage() {
             Add Asset <Plus className="ml-2 h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[525px]">
           <DialogHeader>
             <DialogTitle>Add New Asset</DialogTitle>
             <DialogDescription>
@@ -260,7 +279,12 @@ export default function AssetsListPage() {
                     <FormItem>
                       <FormLabel>Status</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter asset status" {...field} />
+                        <select defaultValue={field.value} {...field} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <option disabled value="">Select Status</option>
+                          <option value="Active">Active</option>
+                          <option value="Inactive">Inactive</option>
+                          <option value="Maintenance">Maintenance</option>
+                        </select>
                       </FormControl>
                       <FormDescription>Current status of the asset</FormDescription>
                       <FormMessage />
