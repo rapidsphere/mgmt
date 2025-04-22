@@ -1,17 +1,16 @@
 
-import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function Home() {
+export default function DashboardPage() {
   return (
     <div className="container mx-auto py-10">
       <Card>
         <CardHeader>
           <CardTitle>Asset Calendar Dashboard</CardTitle>
-          <CardDescription>View asset maintenance and renewal dates.</CardDescription>
+          <CardDescription>Dashboard Content.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
-          <Calendar />
+        <CardContent>
+            <p>Calendar goes here.</p>
         </CardContent>
       </Card>
     </div>
