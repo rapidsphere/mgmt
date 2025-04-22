@@ -9,8 +9,30 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash } from 'lucide-react';
+import { Edit, Trash, Plus } from 'lucide-react';
 import { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Textarea } from '@/components/ui/textarea';
 
 interface Asset {
   assetTagId: string;
@@ -52,12 +74,49 @@ const assets: Asset[] = [
   },
 ];
 
+const assetFormSchema = z.object({
+  name: z.string().min(2, {
+    message: "Asset name must be at least 2 characters.",
+  }),
+  description: z.string().min(10, {
+    message: "Description must be at least 10 characters.",
+  }),
+  brand: z.string().min(2, {
+    message: "Brand must be at least 2 characters.",
+  }),
+  purchaseDate: z.string().optional(),
+  cost: z.number().min(0, {
+    message: "Cost must be a positive number.",
+  }),
+  status: z.enum(['Active', 'Inactive', 'Maintenance']),
+})
+
+type AssetFormValues = z.infer<typeof assetFormSchema>
+
 export default function AssetsListPage() {
   const [assetsList, setAssetsList] = useState(assets);
+  const [open, setOpen] = useState(false);
 
   const handleDelete = (assetTagId: string) => {
     setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
   };
+
+  const form = useForm<AssetFormValues>({
+    resolver: zodResolver(assetFormSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      brand: "",
+      purchaseDate: "",
+      cost: 0,
+      status: 'Active',
+    },
+  })
+
+  function onSubmit(values: AssetFormValues) {
+    console.log(values)
+    setOpen(false);
+  }
 
   return (
     <div className="container mx-auto py-10">
@@ -98,6 +157,119 @@ export default function AssetsListPage() {
           ))}
         </TableBody>
       </Table>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="mt-4">
+            Add Asset <Plus className="ml-2 h-4 w-4" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add New Asset</DialogTitle>
+            <DialogDescription>
+              Create a new asset by filling out the form below.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Asset Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter asset name" {...field} />
+                    </FormControl>
+                    <FormDescription>This is the name of the asset.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Enter asset description" {...field} />
+                    </FormControl>
+                    <FormDescription>Details about the asset.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="brand"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Brand</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter asset brand" {...field} />
+                    </FormControl>
+                    <FormDescription>The brand or manufacturer of the asset.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="purchaseDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Purchase Date</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter purchase date"
+                        type="date"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>The date when the asset was purchased.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="cost"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Cost</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter asset cost"
+                        type="number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>The cost of the asset.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter asset status" {...field} />
+                    </FormControl>
+                    <FormDescription>Current status of the asset</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Add Asset</Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
