@@ -1,6 +1,5 @@
 'use client'
 
-import { Metadata } from 'next';
 import {
   Table,
   TableBody,
@@ -12,11 +11,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
 import { useState } from 'react';
-
-export const metadata: Metadata = {
-  title: 'Assets List',
-  description: 'List of Assets',
-};
 
 interface Asset {
   assetTagId: string;
@@ -107,3 +101,4 @@ export default function AssetsListPage() {
     </div>
   );
 }
+
