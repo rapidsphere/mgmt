@@ -6,6 +6,7 @@ import { Wrench, DollarSign, ShoppingCart } from "lucide-react";
 import { format } from "date-fns";
 import dynamic from 'next/dynamic';
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from 'react';
 
 const PieChartComponent = dynamic(() => import('recharts').then(mod => mod.PieChart), {
   ssr: false,
@@ -38,13 +39,18 @@ export default function Home() {
   ];
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
+  const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <div className="container mx-auto py-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <div className="w-full md:w-1/2 lg:w-1/3">
-          <Card className="h-32">
+          <Card className="h-40">
             <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-lg">Number of Assets</CardTitle>
               <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
@@ -57,7 +63,7 @@ export default function Home() {
         </div>
 
         <div className="w-full md:w-1/2 lg:w-1/3">
-          <Card className="h-32">
+          <Card className="h-40">
             <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-lg">Value of Assets</CardTitle>
               <CardDescription className="text-sm">Total value of all assets.</CardDescription>
@@ -78,7 +84,7 @@ export default function Home() {
             <CardDescription className="text-sm">View asset maintenance and renewal dates. {formattedToday}</CardDescription>
           </CardHeader>
           <CardContent className="p-3 grid gap-2 text-sm">
-            <Calendar />
+           {isClient ? <Calendar /> : null}
           </CardContent>
         </Card>
 
@@ -88,6 +94,7 @@ export default function Home() {
             <CardDescription className="text-sm">Current status of assets.</CardDescription>
           </CardHeader>
           <CardContent className="p-3">
+            {isClient ? (
             <ResponsiveContainerComponent width="100%" height={200}>
               <PieChartComponent>
                 <PieComponent
@@ -106,6 +113,7 @@ export default function Home() {
                 </PieComponent>
               </PieChartComponent>
             </ResponsiveContainerComponent>
+            ) : null}
             <div className="flex justify-center mt-2">
               {data.map((entry, index) => (
                 <div key={`legend-${index}`} className="flex items-center mr-4">
