@@ -18,6 +18,7 @@ const assetSchema = z.object({
   serialNo: z.string().optional(),
   cost: z.string().optional(),
   status: z.enum(['Active', 'Inactive', 'Maintenance']).optional(),
+  assetPhoto: z.string().optional(), // Add assetPhoto field
 });
 
 export async function POST(request: Request) {
@@ -40,4 +41,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
 }
+
 

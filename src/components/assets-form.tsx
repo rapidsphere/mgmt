@@ -39,6 +39,7 @@ const assetSchema = z.object({
   serialNo: z.string().optional(),
   cost: z.string().optional(),
   status: z.enum(['Active', 'Inactive', 'Maintenance']).optional(),
+  assetPhoto: z.string().optional(), // Add assetPhoto field
 });
 
 type AssetValues = z.infer<typeof assetSchema>;
@@ -61,6 +62,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
       serialNo: '',
       cost: '',
       status: 'Active',
+      assetPhoto: '', // Initialize assetPhoto
     },
   });
 
@@ -210,7 +212,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             </FormItem>
           )}
         />
-         <FormField
+        <FormField
           control={form.control}
           name="status"
           render={({ field }) => (
@@ -228,6 +230,19 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
                   </SelectGroup>
                 </SelectContent>
                </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="assetPhoto"
+          render={({field}) => (
+            <FormItem>
+              <FormLabel>Asset Photo</FormLabel>
+              <FormControl>
+                <Input type="file" className="border border-black" {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

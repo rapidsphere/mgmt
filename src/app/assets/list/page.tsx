@@ -49,6 +49,7 @@ interface Asset {
   purchaseDate: string;
   cost: number;
   status: 'Active' | 'Inactive' | 'Maintenance';
+  assetPhoto: string; // Add assetPhoto field
 }
 
 
@@ -70,6 +71,7 @@ const assetFormSchema = z.object({
     message: "Cost must be a valid number.",
   }).transform((value) => Number(value)),
   status: z.enum(['Active', 'Inactive', 'Maintenance']),
+  assetPhoto: z.string().optional(), // Add assetPhoto field
 })
 
 type AssetFormValues = z.infer<typeof assetFormSchema>
@@ -89,6 +91,7 @@ export default function AssetsListPage() {
       purchaseDate: undefined,
       cost: '0',
       status: 'Active',
+      assetPhoto: '', // Initialize assetPhoto
     },
   });
 
@@ -116,6 +119,7 @@ export default function AssetsListPage() {
     form.setValue('purchaseDate', asset.purchaseDate ? new Date(asset.purchaseDate) : undefined);
     form.setValue('cost', String(asset.cost)); // Convert cost to string
     form.setValue('status', asset.status);
+    form.setValue('assetPhoto', asset.assetPhoto); // Set assetPhoto
     setOpen(true);
   };
 
@@ -325,6 +329,19 @@ export default function AssetsListPage() {
                   </FormItem>
                 )}
               />
+                 <FormField
+                  control={form.control}
+                  name="assetPhoto"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Asset Photo</FormLabel>
+                      <FormControl>
+                        <Input type="file" className="border border-black" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
               <Button type="submit">Update Asset</Button>
             </form>
