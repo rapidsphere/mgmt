@@ -10,10 +10,11 @@ export default function Home() {
           <CardTitle>Asset Calendar Dashboard</CardTitle>
           <CardDescription>View asset maintenance and renewal dates.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
+        <CardContent className="p-4 grid gap-2 text-sm">
           <Calendar />
         </CardContent>
       </Card>
     </div>
   );
 }
+
