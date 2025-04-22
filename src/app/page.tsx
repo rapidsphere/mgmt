@@ -43,7 +43,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
         <div className="w-full md:w-1/2 lg:w-1/4">
-          <Card>
+          <Card className="h-32">
             <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-md">Number of Assets</CardTitle>
               <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
@@ -56,7 +56,7 @@ export default function Home() {
         </div>
 
         <div className="w-full md:w-1/2 lg:w-1/4">
-          <Card>
+          <Card className="h-32">
             <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-md">Value of Assets</CardTitle>
               <CardDescription className="text-sm">Total value of all assets.</CardDescription>
@@ -69,8 +69,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-        <Card className="md:col-span-2 lg:col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+        <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-lg">Asset Calendar Dashboard</CardTitle>
             <CardDescription className="text-sm">View asset maintenance and renewal dates. {formattedToday}</CardDescription>
@@ -80,7 +80,7 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-2 lg:col-span-1">
+        <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-lg">Asset Availability</CardTitle>
             <CardDescription className="text-sm">Current status of assets.</CardDescription>
@@ -118,3 +118,4 @@ export default function Home() {
     </div>
   );
 }
+
