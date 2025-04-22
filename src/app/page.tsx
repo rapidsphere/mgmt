@@ -17,16 +17,19 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="p-3">
-            <CardTitle className="text-md">Number of Assets</CardTitle>
-            <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex items-center gap-2 p-3">
-            <Wrench className="h-4 w-4 text-muted-foreground" />
-            <p className="text-xl font-bold">150</p>
-          </CardContent>
-        </Card>
+        <div className="md:w-1/2">
+          <Card>
+            <CardHeader className="p-3">
+              <CardTitle className="text-md">Number of Assets</CardTitle>
+              <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex items-center gap-2 p-3">
+              <Wrench className="h-4 w-4 text-muted-foreground" />
+              <p className="text-xl font-bold">150</p>
+            </CardContent>
+          </Card>
+        </div>
+
 
         <Card>
           <CardHeader className="p-3">
@@ -42,3 +45,4 @@ export default function Home() {
     </div>
   );
 }
+
