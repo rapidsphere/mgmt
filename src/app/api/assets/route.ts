@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { z } from "zod";
 
 const assetSchema = z.object({
+    name: z.string().min(2, {
+    message: 'Asset name must be at least 2 characters.',
+  }),
   description: z.string().min(2, {
     message: 'Description must be at least 2 characters.',
   }),
@@ -37,3 +40,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
 }
+

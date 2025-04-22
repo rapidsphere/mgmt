@@ -20,8 +20,12 @@ import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
 import {cn} from '@/lib/utils';
 import {format} from 'date-fns';
 import {useState} from 'react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 
 const assetSchema = z.object({
+  name: z.string().min(2, {
+    message: 'Asset name must be at least 2 characters.',
+  }),
   description: z.string().min(2, {
     message: 'Description must be at least 2 characters.',
   }),
@@ -34,6 +38,7 @@ const assetSchema = z.object({
   model: z.string().optional(),
   serialNo: z.string().optional(),
   cost: z.string().optional(),
+  status: z.enum(['Active', 'Inactive', 'Maintenance']).optional(),
 });
 
 type AssetValues = z.infer<typeof assetSchema>;
@@ -46,6 +51,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
   const form = useForm<AssetValues>({
     resolver: zodResolver(assetSchema),
     defaultValues: {
+      name: '',
       description: '',
       assetTagId: '',
       purchasedFrom: '',
@@ -54,12 +60,26 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
       model: '',
       serialNo: '',
       cost: '',
+      status: 'Active',
     },
   });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({field}) => (
+            <FormItem>
+              <FormLabel>Name *</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter asset name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="description"
@@ -190,8 +210,31 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
             </FormItem>
           )}
         />
+         <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status</FormLabel>
+              <Select>
+                 <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="Active">Active</SelectItem>
+                    <SelectItem value="Inactive">Inactive</SelectItem>
+                    <SelectItem value="Maintenance">Maintenance</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
+
