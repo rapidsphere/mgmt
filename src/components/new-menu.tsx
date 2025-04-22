@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {cn} from '@/lib/utils';
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 
 interface MenuItem {
   label: string;
@@ -25,7 +27,7 @@ export function NewMenu({className}: NewMenuProps) {
   ];
 
   return (
-    <nav className={cn('bg-blue-100 p-4', className)}>
+    <nav className={cn('bg-blue-100 p-4 flex justify-between items-center', className)}>
       <ul className="flex space-x-4">
         {menuItems.map(item => (
           <li key={item.href}>
@@ -42,6 +44,25 @@ export function NewMenu({className}: NewMenuProps) {
           </li>
         ))}
       </ul>
+
+      {/* Profile Section */}
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Avatar className="cursor-pointer">
+            <AvatarImage src="https://picsum.photos/50/50" alt="Profile" />
+            <AvatarFallback>AS</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem>
+            Signed in as: yourname@example.com
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Log Out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </nav>
   );
 }
+
