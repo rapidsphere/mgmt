@@ -28,4 +28,3 @@ export const sidebarItems = [
     label: "Check Out",
   },
 ];
-
