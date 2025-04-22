@@ -22,7 +22,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -203,7 +202,6 @@ export default function AssetsListPage() {
                       <FormControl className="col-span-3">
                         <Input placeholder="Enter asset name" {...field} />
                       </FormControl>
-                      <FormDescription className="col-span-4">This is the name of the asset.</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
@@ -217,7 +215,6 @@ export default function AssetsListPage() {
                       <FormControl className="col-span-3">
                         <Textarea placeholder="Enter asset description" {...field} />
                       </FormControl>
-                      <FormDescription className="col-span-4">Details about the asset.</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
@@ -231,7 +228,6 @@ export default function AssetsListPage() {
                       <FormControl className="col-span-3">
                         <Input placeholder="Enter asset brand" {...field} />
                       </FormControl>
-                      <FormDescription className="col-span-4">The brand or manufacturer of the asset.</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
@@ -249,7 +245,6 @@ export default function AssetsListPage() {
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription className="col-span-4">The date when the asset was purchased.</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
@@ -267,7 +262,6 @@ export default function AssetsListPage() {
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription className="col-span-4">The cost of the asset.</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
@@ -286,7 +280,6 @@ export default function AssetsListPage() {
                           <option value="Maintenance">Maintenance</option>
                         </select>
                       </FormControl>
-                      <FormDescription className="col-span-4">Current status of the asset</FormDescription>
                       <FormMessage className="col-span-4" />
                     </FormItem>
                   )}
