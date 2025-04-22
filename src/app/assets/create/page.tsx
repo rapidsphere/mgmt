@@ -1,3 +1,5 @@
+'use client'
+
 import AssetsFormComponent from "@/components/assets-form";
 
 export default function AssetsCreatePage() {
