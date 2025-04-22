@@ -1,9 +1,30 @@
+'use client';
 
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Wrench, DollarSign } from "lucide-react";
 import { format } from "date-fns";
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import dynamic from 'next/dynamic';
+
+const PieChartComponent = dynamic(() => import('recharts').then(mod => mod.PieChart), {
+  ssr: false,
+  loading: () => <p>Loading chart...</p>,
+});
+
+const PieComponent = dynamic(() => import('recharts').then(mod => mod.Pie), {
+  ssr: false,
+  loading: () => <p>Loading chart...</p>,
+});
+
+const CellComponent = dynamic(() => import('recharts').then(mod => mod.Cell), {
+  ssr: false,
+  loading: () => <p>Loading chart...</p>,
+});
+
+const ResponsiveContainerComponent = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), {
+  ssr: false,
+  loading: () => <p>Loading chart...</p>,
+});
 
 export default function Home() {
   const today = new Date();
@@ -19,7 +40,8 @@ export default function Home() {
 
   return (
     <div className="container mx-auto py-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
         <div className="w-full md:w-1/2 lg:w-1/4">
           <Card>
             <CardHeader className="flex flex-col space-y-1.5 p-3">
@@ -64,9 +86,9 @@ export default function Home() {
             <CardDescription className="text-sm">Current status of assets.</CardDescription>
           </CardHeader>
           <CardContent className="p-3">
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
+            <ResponsiveContainerComponent width="100%" height={200}>
+              <PieChartComponent>
+                <PieComponent
                   data={data}
                   cx="50%"
                   cy="50%"
@@ -77,11 +99,11 @@ export default function Home() {
                   dataKey="value"
                 >
                   {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <CellComponent key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+                </PieComponent>
+              </PieChartComponent>
+            </ResponsiveContainerComponent>
             <div className="flex justify-center mt-2">
               {data.map((entry, index) => (
                 <div key={`legend-${index}`} className="flex items-center mr-4">
