@@ -1,3 +1,5 @@
+'use client'
+
 import { Metadata } from 'next';
 import {
   Table,
@@ -7,6 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Edit, Trash } from 'lucide-react';
+import { useState } from 'react';
 
 export const metadata: Metadata = {
   title: 'Assets List',
@@ -14,64 +19,87 @@ export const metadata: Metadata = {
 };
 
 interface Asset {
+  assetTagId: string;
   name: string;
-  type: string;
+  description: string;
+  brand: string;
   purchaseDate: string;
-  warrantyInfo: string;
-  maintenanceSchedule: string;
-  notes: string;
+  cost: number;
+  status: 'Active' | 'Inactive' | 'Maintenance';
 }
 
 const assets: Asset[] = [
   {
+    assetTagId: 'AST-001',
     name: 'Laptop',
-    type: 'Electronics',
+    description: 'Dell XPS 15',
+    brand: 'Dell',
     purchaseDate: '2023-01-15',
-    warrantyInfo: '2 years',
-    maintenanceSchedule: 'Annually',
-    notes: 'Used for development',
+    cost: 1200,
+    status: 'Active',
   },
   {
+    assetTagId: 'AST-002',
     name: 'Monitor',
-    type: 'Electronics',
+    description: 'Samsung 27" Curved',
+    brand: 'Samsung',
     purchaseDate: '2023-03-20',
-    warrantyInfo: '1 year',
-    maintenanceSchedule: 'None',
-    notes: 'Secondary display',
+    cost: 350,
+    status: 'Active',
   },
   {
+    assetTagId: 'AST-003',
     name: 'Desk',
-    type: 'Furniture',
+    description: 'Standing Desk Converter',
+    brand: 'Vari',
     purchaseDate: '2022-11-10',
-    warrantyInfo: '5 years',
-    maintenanceSchedule: 'None',
-    notes: 'Main workstation',
+    cost: 450,
+    status: 'Active',
   },
 ];
 
 export default function AssetsListPage() {
+  const [assetsList, setAssetsList] = useState(assets);
+
+  const handleDelete = (assetTagId: string) => {
+    setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
+  };
+
   return (
     <div className="container mx-auto py-10">
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Asset Tag ID</TableHead>
             <TableHead>Name</TableHead>
-            <TableHead>Type</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Brand</TableHead>
             <TableHead>Purchase Date</TableHead>
-            <TableHead>Warranty Info</TableHead>
-            <TableHead>Maintenance Schedule</TableHead>
-            <TableHead>Notes</TableHead>
+            <TableHead>Cost</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {assets.map((asset, index) => (
+          {assetsList.map((asset, index) => (
             <TableRow key={index}>
+              <TableCell>{asset.assetTagId}</TableCell>
               <TableCell>{asset.name}</TableCell>
-              <TableCell>{asset.type}</TableCell>
+              <TableCell>{asset.description}</TableCell>
+              <TableCell>{asset.brand}</TableCell>
               <TableCell>{asset.purchaseDate}</TableCell>
-              <TableCell>{asset.warrantyInfo}</TableCell>
-              <TableCell>{asset.maintenanceSchedule}</TableCell>
-              <TableCell>{asset.notes}</TableCell>
+              <TableCell>${asset.cost}</TableCell>
+              <TableCell>{asset.status}</TableCell>
+              <TableCell>
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="icon">
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={() => handleDelete(asset.assetTagId)}>
+                    <Trash className="h-4 w-4" />
+                  </Button>
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
