@@ -97,58 +97,21 @@ type AssetFormValues = z.infer<typeof assetFormSchema>
 
 export default function AssetsListPage() {
   const [assetsList, setAssetsList] = useState(assets);
-  const [open, setOpen] = useState(false);
-  const { toast } = useToast()
-
-  const [editAsset, setEditAsset] = useState<Asset | null>(null);
-
 
   const handleDelete = (assetTagId: string) => {
     setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
   };
 
-  const form = useForm<AssetFormValues>({
-    resolver: zodResolver(assetFormSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      brand: "",
-      purchaseDate: "",
-      cost: '0',
-      status: 'Active',
-    },
-  })
-
-  function onSubmit(values: AssetFormValues) {
-    console.log(values);
-    const newAsset: Asset = {
-      assetTagId: `AST-${Math.floor(Math.random() * 1000)}`, // Generate a random ID
-      name: values.name,
-      description: values.description,
-      brand: values.brand,
-      purchaseDate: values.purchaseDate || '',
-      cost: values.cost,
-      status: values.status,
-    };
-
-    setAssetsList([...assetsList, newAsset]);
-    setOpen(false);
-    toast({
-      title: "Asset added successfully!",
-      description: "Your asset has been added to the list.",
-    })
-    form.reset(); // Clear the form
-  }
 
   const handleEdit = (asset: Asset) => {
-    setEditAsset(asset);
-    form.setValue('name', asset.name);
-    form.setValue('description', asset.description);
-    form.setValue('brand', asset.brand);
-    form.setValue('purchaseDate', asset.purchaseDate);
-    form.setValue('cost', String(asset.cost)); // Convert cost to string
-    form.setValue('status', asset.status);
-    setOpen(true);
+    // setEditAsset(asset);
+    // form.setValue('name', asset.name);
+    // form.setValue('description', asset.description);
+    // form.setValue('brand', asset.brand);
+    // form.setValue('purchaseDate', asset.purchaseDate);
+    // form.setValue('cost', String(asset.cost)); // Convert cost to string
+    // form.setValue('status', asset.status);
+    // setOpen(true);
   };
 
   return (
@@ -190,122 +153,6 @@ export default function AssetsListPage() {
           ))}
         </TableBody>
       </Table>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button className="mt-4">
-            Add Asset <Plus className="ml-2 h-4 w-4" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[525px]">
-          <DialogHeader>
-            <DialogTitle>{editAsset ? "Edit Asset" : "Add New Asset"}</DialogTitle>
-            <DialogDescription>
-              {editAsset
-                ? "Edit the asset details by modifying the form below."
-                : "Create a new asset by filling out the form below."}
-            </DialogDescription>
-          </DialogHeader>
-          <ScrollArea>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Asset Name</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Input placeholder="Enter asset name" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Description</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Textarea placeholder="Enter asset description" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="brand"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Brand</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Input placeholder="Enter asset brand" {...field} />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="purchaseDate"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Purchase Date</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Input
-                          placeholder="Enter purchase date"
-                          type="date"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                 <FormField
-                  control={form.control}
-                  name="cost"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Cost</FormLabel>
-                      <FormControl className="col-span-3">
-                        <Input
-                          placeholder="Enter asset cost"
-                          type="text"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="status"
-                  render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Status</FormLabel>
-                      <FormControl className="col-span-3">
-                        <select {...field} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                          <option disabled value="">Select Status</option>
-                          <option value="Active">Active</option>
-                          <option value="Inactive">Inactive</option>
-                          <option value="Maintenance">Maintenance</option>
-                        </select>
-                      </FormControl>
-                      <FormMessage className="col-span-4" />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit">{editAsset ? "Update Asset" : "Add Asset"}</Button>
-              </form>
-            </Form>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

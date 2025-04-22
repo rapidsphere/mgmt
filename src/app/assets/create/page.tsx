@@ -1,19 +1,17 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import AssetsFormComponent from "@/components/assets-form";
 
 export default function AssetsCreatePage() {
+  const handleSubmit = (values: any) => {
+    console.log('Form values:', values);
+    // Handle form submission logic here
+  };
+
   return (
     <div className="container mx-auto py-10">
-      <Card>
-        <CardHeader>
-          <CardTitle>Add New Asset</CardTitle>
-          <CardDescription>Input and store new asset information.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {/* Placeholder for the add asset form */}
-          <p>Asset creation form will be displayed here.</p>
-        </CardContent>
-      </Card>
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+        <h1 className="text-2xl font-semibold mb-4">Asset Details</h1>
+        <AssetsFormComponent onSubmit={handleSubmit} />
+      </div>
     </div>
   );
 }
