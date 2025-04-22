@@ -43,7 +43,7 @@ export default function Home() {
     <div className="container mx-auto py-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <div className="w-full md:w-1/2 lg:w-1/4">
+        <div className="w-full md:w-1/2 lg:w-1/3">
           <Card className="h-32">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle className="text-lg">Number of Assets</CardTitle>
@@ -56,7 +56,7 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="w-full md:w-1/2 lg:w-1/4">
+        <div className="w-full md:w-1/2 lg:w-1/3">
           <Card className="h-32">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle className="text-lg">Value of Assets</CardTitle>
@@ -69,18 +69,6 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="w-full md:w-1/2 lg:w-1/4">
-          <Card className="h-32">
-            <CardHeader className="flex flex-col space-y-1.5 p-4">
-              <CardTitle className="text-lg">Purchase this fiscal year</CardTitle>
-              <CardDescription className="text-sm">Total assets purchased in {formattedToday}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex items-center gap-2 p-3">
-              <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-              <p className="text-xl font-bold">20</p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
