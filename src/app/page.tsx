@@ -45,7 +45,7 @@ export default function Home() {
 
         <div className="w-full md:w-1/2 lg:w-1/3">
           <Card className="h-32">
-            <CardHeader className="flex flex-col space-y-1.5 p-4">
+            <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-lg">Number of Assets</CardTitle>
               <CardDescription className="text-sm">Total number of assets managed.</CardDescription>
             </CardHeader>
@@ -58,7 +58,7 @@ export default function Home() {
 
         <div className="w-full md:w-1/2 lg:w-1/3">
           <Card className="h-32">
-            <CardHeader className="flex flex-col space-y-1.5 p-4">
+            <CardHeader className="flex flex-col space-y-1.5 p-3">
               <CardTitle className="text-lg">Value of Assets</CardTitle>
               <CardDescription className="text-sm">Total value of all assets.</CardDescription>
             </CardHeader>
