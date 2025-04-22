@@ -17,7 +17,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   Form,
@@ -87,9 +86,9 @@ const assetFormSchema = z.object({
     message: "Brand must be at least 2 characters.",
   }),
   purchaseDate: z.string().optional(),
-  cost: z.number().int().min(0, {
-    message: "Cost must be a positive integer.",
-  }),
+  cost: z.string().refine((value) => !isNaN(Number(value)), {
+    message: "Cost must be a valid number.",
+  }).transform((value) => Number(value)),
   status: z.enum(['Active', 'Inactive', 'Maintenance']),
 })
 
@@ -111,7 +110,7 @@ export default function AssetsListPage() {
       description: "",
       brand: "",
       purchaseDate: "",
-      cost: 0,
+      cost: '0',
       status: 'Active',
     },
   })
@@ -258,7 +257,7 @@ export default function AssetsListPage() {
                       <FormControl className="col-span-3">
                         <Input
                           placeholder="Enter asset cost"
-                          type="number"
+                          type="text"
                           {...field}
                         />
                       </FormControl>
