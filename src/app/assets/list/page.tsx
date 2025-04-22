@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -46,35 +46,6 @@ interface Asset {
   status: 'Active' | 'Inactive' | 'Maintenance';
 }
 
-const assets: Asset[] = [
-  {
-    assetTagId: 'AST-001',
-    name: 'Laptop',
-    description: 'Dell XPS 15',
-    brand: 'Dell',
-    purchaseDate: '2023-01-15',
-    cost: 1200,
-    status: 'Active',
-  },
-  {
-    assetTagId: 'AST-002',
-    name: 'Monitor',
-    description: 'Samsung 27" Curved',
-    brand: 'Samsung',
-    purchaseDate: '2023-03-20',
-    cost: 350,
-    status: 'Active',
-  },
-  {
-    assetTagId: 'AST-003',
-    name: 'Desk',
-    description: 'Standing Desk Converter',
-    brand: 'Vari',
-    purchaseDate: '2022-11-10',
-    cost: 450,
-    status: 'Active',
-  },
-];
 
 const assetFormSchema = z.object({
   name: z.string().min(2, {
@@ -96,7 +67,15 @@ const assetFormSchema = z.object({
 type AssetFormValues = z.infer<typeof assetFormSchema>
 
 export default function AssetsListPage() {
-  const [assetsList, setAssetsList] = useState(assets);
+  const [assetsList, setAssetsList] = useState<Asset[]>([]);
+
+  useEffect(() => {
+    // Load existing assets from local storage on component mount
+    const storedAssets = localStorage.getItem('assets');
+    if (storedAssets) {
+      setAssetsList(JSON.parse(storedAssets));
+    }
+  }, []);
 
   const handleDelete = (assetTagId: string) => {
     setAssetsList(assetsList.filter(asset => asset.assetTagId !== assetTagId));
