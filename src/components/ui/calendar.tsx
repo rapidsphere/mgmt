@@ -46,7 +46,7 @@ function Calendar({
           "h-9 w-9 p-0 font-normal aria-selected:opacity-100",
           (date) => {
             const formattedDate = format(date, 'yyyy-MM-dd');
-            return formattedDate === formattedToday ? "bg-accent text-accent-foreground" : "";
+            return formattedDate === formattedToday ? "bg-yellow-500 text-gray-900 hover:bg-yellow-500 hover:text-gray-900 focus:bg-yellow-500 focus:text-gray-900" : "";
           }
         ),
         day_range_end: "day-range-end",
@@ -76,3 +76,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
