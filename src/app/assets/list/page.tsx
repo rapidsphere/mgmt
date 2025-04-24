@@ -40,6 +40,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
+import Link from 'next/link';
 
 interface Asset {
   assetTagId: string;
@@ -163,9 +164,7 @@ export default function AssetsListPage() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border border-black"
         />
-          <Button className="mt-4">
-            Add Asset <Plus className="ml-2 h-4 w-4" />
-          </Button>
+          
       </div>
       <Table className="border border-black">
         <TableHeader>
@@ -367,3 +366,4 @@ export default function AssetsListPage() {
     </div>
   );
 }
+
