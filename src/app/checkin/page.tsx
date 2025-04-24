@@ -372,7 +372,7 @@ export default function CheckInPage() {
                 </DialogContent>
             </Dialog>
 
-             <Card>
+            <Card>
                 <CardHeader>
                     <CardTitle>Checked-out Assets</CardTitle>
                     <CardDescription>List of assets that have been checked out.</CardDescription>
@@ -390,15 +390,25 @@ export default function CheckInPage() {
                         </TableHeader>
                         <TableBody>
                             {checkedOutAssets && checkedOutAssets.map((checkIn, index) => (
-                                checkIn.assets.map((asset: any, assetIndex: number) => (
-                                    <TableRow key={`${index}-${assetIndex}`}>
-                                        <TableCell>{asset.assetTagId}</TableCell>
-                                        <TableCell>{asset.name}</TableCell>
-                                        <TableCell>{asset.description}</TableCell>
-                                        <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
-                                        <TableCell>{checkIn.checkInPerson}</TableCell>
-                                    </TableRow>
-                                ))
+                                 Array.isArray(checkIn.assets) ? (
+                                checkIn.assets.map((asset: any, assetIndex: number) => {
+                                    // Find the corresponding check-out record to get the check-out person
+                                    const checkOutRecord = checkedOutAssets.find(record =>
+                                        record.assets.some((checkedOutAsset: any) => checkedOutAsset.assetTagId === asset.assetTagId)
+                                    );
+                                    const checkOutPerson = checkOutRecord ? checkOutRecord.checkOutPerson : 'N/A';
+
+                                    return (
+                                        <TableRow key={`${index}-${assetIndex}`}>
+                                            <TableCell>{asset.assetTagId}</TableCell>
+                                            <TableCell>{asset.name}</TableCell>
+                                            <TableCell>{asset.description}</TableCell>
+                                            <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
+                                            <TableCell>{checkOutPerson}</TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                                ) : null
                             ))}
                         </TableBody>
                     </Table>
@@ -407,4 +417,3 @@ export default function CheckInPage() {
     </div>
   );
 }
-
