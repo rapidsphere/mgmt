@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
-import {UserX} from 'lucide-react';
+import {UserX, Search} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -31,7 +31,6 @@ import {
 import {Checkbox} from '@/components/ui/checkbox';
 import {useState, useEffect} from 'react';
 import {cn} from '@/lib/utils';
-import {Search} from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -389,11 +388,9 @@ export default function CheckInPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {checkedOutAssets && checkedOutAssets.map((checkIn, index) => (
+                            {checkedOutAssets && Array.isArray(checkedOutAssets) ? checkedOutAssets.map((checkIn, index) => (
                                  Array.isArray(checkIn.assets) ? (
                                 checkIn.assets.map((asset: any, assetIndex: number) => {
-                                    // Find the corresponding check-out record to get the check-out person
-                                    // Find the corresponding check-out record to get the check-out person
 
                                     return (
                                         <TableRow key={`${index}-${assetIndex}`}>
@@ -406,7 +403,7 @@ export default function CheckInPage() {
                                     );
                                 })
                                 ) : null
-                            ))}
+                            )) : null}
                         </TableBody>
                     </Table>
                 </CardContent>
