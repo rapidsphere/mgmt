@@ -93,7 +93,21 @@ export default function CheckInPage() {
      // Load checked out assets from local storage on component mount
      const storedCheckedOutAssets = localStorage.getItem('checkedOutAssets');
      if (storedCheckedOutAssets) {
-         setCheckedOutAssets(JSON.parse(storedCheckedOutAssets));
+        try {
+            const parsedAssets = JSON.parse(storedCheckedOutAssets);
+            // Ensure that parsedAssets is an array
+            if (Array.isArray(parsedAssets)) {
+                setCheckedOutAssets(parsedAssets);
+            } else {
+                // If it's not an array, assume it's a single object and wrap it in an array
+                setCheckedOutAssets([parsedAssets]);
+            }
+        } catch (error) {
+            console.error('Error parsing checkedOutAssets from localStorage:', error);
+            setCheckedOutAssets([]); // Provide a default empty array in case of parsing error
+        }
+     } else {
+        setCheckedOutAssets([]);
      }
   }, []);
 
@@ -375,7 +389,7 @@ export default function CheckInPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {checkedOutAssets.map((checkIn, index) => (
+                            {checkedOutAssets && checkedOutAssets.map((checkIn, index) => (
                                 checkIn.assets.map((asset: any, assetIndex: number) => (
                                     <TableRow key={`${index}-${assetIndex}`}>
                                         <TableCell>{asset.assetTagId}</TableCell>
