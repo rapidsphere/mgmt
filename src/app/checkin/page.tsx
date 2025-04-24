@@ -32,6 +32,22 @@ import {Checkbox} from '@/components/ui/checkbox';
 import {useState, useEffect} from 'react';
 import {cn} from '@/lib/utils';
 import {Search} from 'lucide-react';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { format } from "date-fns"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Textarea } from "@/components/ui/textarea"
 
 interface Asset {
   assetTagId: string;
@@ -40,6 +56,15 @@ interface Asset {
   status: string; // Adjust the type as necessary
 }
 
+const checkInFormSchema = z.object({
+  checkInDate: z.date().optional(),
+  checkInPerson: z.string().min(2, {
+    message: "Check-in person must be at least 2 characters.",
+  }),
+})
+
+type CheckInFormValues = z.infer<typeof checkInFormSchema>
+
 export default function CheckInPage() {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,6 +72,15 @@ export default function CheckInPage() {
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+    const [checkInOpen, setCheckInOpen] = useState(false); // State for the check-in dialog
+
+  const form = useForm<CheckInFormValues>({
+    resolver: zodResolver(checkInFormSchema),
+    defaultValues: {
+      checkInDate: undefined,
+      checkInPerson: '',
+    },
+  });
 
   useEffect(() => {
     // Load existing assets from local storage on component mount
@@ -66,6 +100,15 @@ export default function CheckInPage() {
     });
   };
 
+    const handleAddToList = () => {
+        if (selectedAssets.length > 0) {
+            setCheckInOpen(true); // Open the check-in dialog
+            setOpen(false); // Close the asset selection dialog
+        } else {
+            alert('Please select at least one asset.');
+        }
+    };
+
   const filteredAssets = assets.filter(asset => {
     const searchStr = `${asset.assetTagId} ${asset.name} ${asset.description}`.toLowerCase();
     return searchStr.includes(searchTerm.toLowerCase());
@@ -76,6 +119,12 @@ export default function CheckInPage() {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
+    const handleSubmitCheckIn = async (values: CheckInFormValues) => {
+        console.log('Check-in values:', values);
+        // Handle the check-in submission here, e.g., save to local storage, etc.
+        setCheckInOpen(false);
+    };
 
   return (
     <div className="container mx-auto py-10">
@@ -204,7 +253,7 @@ export default function CheckInPage() {
                 </div>
               </div>
               <div className="flex justify-end space-x-2">
-                <Button variant="primary">Add to List</Button>
+                <Button variant="primary" onClick={handleAddToList}>Add to List</Button>
                 <DialogClose asChild>
                   <Button variant="secondary">Cancel</Button>
                 </DialogClose>
@@ -213,6 +262,75 @@ export default function CheckInPage() {
           </Dialog>
         </CardContent>
       </Card>
+
+            <Dialog open={checkInOpen} onOpenChange={setCheckInOpen}>
+                <DialogContent className="sm:max-w-[525px]">
+                    <DialogHeader>
+                        <DialogTitle>Check-in Details</DialogTitle>
+                        <DialogDescription>
+                            Enter the check-in details for the selected assets.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(handleSubmitCheckIn)} className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="checkInDate"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                        <FormLabel>Check-in Date</FormLabel>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <FormControl>
+                                                    <Button
+                                                        variant={'outline'}
+                                                        className={cn(
+                                                            'w-[240px] pl-3 text-left font-normal',
+                                                            !field.value && 'text-muted-foreground'
+                                                        )}
+                                                    >
+                                                        {field.value ? (
+                                                            format(field.value, 'dd/MM/yyyy')
+                                                        ) : (
+                                                            <span>dd/MM/yyyy</span>
+                                                        )}
+                                                        {/* Calendar icon here if desired */}
+                                                    </Button>
+                                                </FormControl>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0" align="start" side="bottom">
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={field.value}
+                                                    onSelect={field.onChange}
+                                                    disabled={false}
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="checkInPerson"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Check-in Person</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter person name" className="border border-black" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit">Submit Check-in</Button>
+                        </form>
+                    </Form>
+                </DialogContent>
+            </Dialog>
     </div>
   );
 }
+

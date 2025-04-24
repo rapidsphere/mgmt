@@ -31,6 +31,20 @@ import {
 import {Checkbox} from '@/components/ui/checkbox';
 import {useState, useEffect} from 'react';
 import {cn} from '@/lib/utils';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { format } from "date-fns"
 
 interface Asset {
   assetTagId: string;
@@ -39,6 +53,15 @@ interface Asset {
   status: string; // Adjust the type as necessary
 }
 
+const checkOutFormSchema = z.object({
+  checkOutDate: z.date().optional(),
+  checkOutPerson: z.string().min(2, {
+    message: "Check-out person must be at least 2 characters.",
+  }),
+})
+
+type CheckOutFormValues = z.infer<typeof checkOutFormSchema>
+
 export default function CheckOutPage() {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,6 +69,15 @@ export default function CheckOutPage() {
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+    const [checkOutOpen, setCheckOutOpen] = useState(false); // State for the check-out dialog
+
+  const form = useForm<CheckOutFormValues>({
+    resolver: zodResolver(checkOutFormSchema),
+    defaultValues: {
+      checkOutDate: undefined,
+      checkOutPerson: '',
+    },
+  });
 
   useEffect(() => {
     // Load existing assets from local storage on component mount
@@ -65,6 +97,15 @@ export default function CheckOutPage() {
     });
   };
 
+    const handleAddToList = () => {
+        if (selectedAssets.length > 0) {
+            setCheckOutOpen(true); // Open the check-out dialog
+            setOpen(false); // Close the asset selection dialog
+        } else {
+            alert('Please select at least one asset.');
+        }
+    };
+
   const filteredAssets = assets.filter(asset => {
     const searchStr = `${asset.assetTagId} ${asset.name} ${asset.description}`.toLowerCase();
     return searchStr.includes(searchTerm.toLowerCase());
@@ -75,6 +116,12 @@ export default function CheckOutPage() {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
+    const handleSubmitCheckOut = async (values: CheckOutFormValues) => {
+        console.log('Check-out values:', values);
+        // Handle the check-out submission here, e.g., save to local storage, etc.
+        setCheckOutOpen(false);
+    };
 
   return (
     <div className="container mx-auto py-10">
@@ -203,7 +250,7 @@ export default function CheckOutPage() {
                 </div>
               </div>
               <div className="flex justify-end space-x-2">
-                <Button variant="primary">Add to List</Button>
+                <Button variant="primary" onClick={handleAddToList}>Add to List</Button>
                 <DialogClose asChild>
                   <Button variant="secondary">Cancel</Button>
                 </DialogClose>
@@ -212,6 +259,75 @@ export default function CheckOutPage() {
           </Dialog>
         </CardContent>
       </Card>
+
+            <Dialog open={checkOutOpen} onOpenChange={setCheckOutOpen}>
+                <DialogContent className="sm:max-w-[525px]">
+                    <DialogHeader>
+                        <DialogTitle>Check-out Details</DialogTitle>
+                        <DialogDescription>
+                            Enter the check-out details for the selected assets.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(handleSubmitCheckOut)} className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="checkOutDate"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                        <FormLabel>Check-out Date</FormLabel>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <FormControl>
+                                                    <Button
+                                                        variant={'outline'}
+                                                        className={cn(
+                                                            'w-[240px] pl-3 text-left font-normal',
+                                                            !field.value && 'text-muted-foreground'
+                                                        )}
+                                                    >
+                                                        {field.value ? (
+                                                            format(field.value, 'dd/MM/yyyy')
+                                                        ) : (
+                                                            <span>dd/MM/yyyy</span>
+                                                        )}
+                                                        {/* Calendar icon here if desired */}
+                                                    </Button>
+                                                </FormControl>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0" align="start" side="bottom">
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={field.value}
+                                                    onSelect={field.onChange}
+                                                    disabled={false}
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="checkOutPerson"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Check-out Person</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter person name" className="border border-black" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit">Submit Check-out</Button>
+                        </form>
+                    </Form>
+                </DialogContent>
+            </Dialog>
     </div>
   );
 }
+
