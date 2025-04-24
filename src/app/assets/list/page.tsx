@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash, Plus } from 'lucide-react';
+import { Edit, Trash, Plus, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import {
   Dialog,
@@ -80,6 +80,7 @@ export default function AssetsListPage() {
   const [assetsList, setAssetsList] = useState<Asset[]>([]);
   const [open, setOpen] = useState(false);
   const [editAsset, setEditAsset] = useState<Asset | null>(null);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   const form = useForm<AssetFormValues>({
     resolver: zodResolver(assetFormSchema),
@@ -147,8 +148,25 @@ export default function AssetsListPage() {
     }
   };
 
+  const filteredAssets = assetsList.filter(asset => {
+    const searchStr = `${asset.assetTagId} ${asset.name} ${asset.description} ${asset.brand} ${asset.purchaseDate} ${asset.status}`.toLowerCase();
+    return searchStr.includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="container mx-auto py-10">
+        <div className="flex items-center justify-between mb-4">
+        <Input
+          type="text"
+          placeholder="Search assets..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border border-black"
+        />
+          <Button className="mt-4">
+            Add Asset <Plus className="ml-2 h-4 w-4" />
+          </Button>
+      </div>
       <Table className="border border-black">
         <TableHeader>
           <TableRow>
@@ -163,7 +181,7 @@ export default function AssetsListPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {assetsList.map((asset, index) => (
+          {filteredAssets.map((asset, index) => (
             <TableRow key={index}>
               <TableCell className="border border-black">{asset.assetTagId}</TableCell>
               <TableCell className="border border-black">{asset.name}</TableCell>
@@ -188,9 +206,7 @@ export default function AssetsListPage() {
       </Table>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="mt-4">
-            Add Asset <Plus className="ml-2 h-4 w-4" />
-          </Button>
+          
         </DialogTrigger>
         <DialogContent className="sm:max-w-[525px]">
           <DialogHeader>
