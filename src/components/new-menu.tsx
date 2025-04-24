@@ -21,8 +21,8 @@ export function NewMenu({className}: NewMenuProps) {
     {label: 'Dashboard', href: '/'},
     {label: 'Asset List', href: '/assets/list'},
     {label: 'Add Asset', href: '/assets/create'},
-    {label: 'Check In', href: '/checkin'},
     {label: 'Check Out', href: '/checkout'},
+    {label: 'Check In', href: '/checkin'},
     {label: 'Report', href: '/report'},
   ];
 
