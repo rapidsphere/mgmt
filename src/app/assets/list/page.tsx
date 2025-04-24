@@ -214,6 +214,7 @@ export default function AssetsListPage() {
               Make changes to the asset details. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
+          <ScrollArea className="max-h-[500px]">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmitEdit)} className="space-y-4">
               <FormField
@@ -361,6 +362,7 @@ export default function AssetsListPage() {
               <Button type="submit">Update Asset</Button>
             </form>
           </Form>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     </div>
