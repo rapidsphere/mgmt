@@ -384,7 +384,7 @@ export default function CheckInPage() {
                                 <TableHead>Asset Tag ID</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Description</TableHead>
-                                <TableHead>Check-out Date</TableHead>
+                                <TableHead>Check-in Date</TableHead>
                                 <TableHead>Check-out Person</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -393,10 +393,7 @@ export default function CheckInPage() {
                                  Array.isArray(checkIn.assets) ? (
                                 checkIn.assets.map((asset: any, assetIndex: number) => {
                                     // Find the corresponding check-out record to get the check-out person
-                                    const checkOutRecord = checkedOutAssets.find(record =>
-                                        record.assets.some((checkedOutAsset: any) => checkedOutAsset.assetTagId === asset.assetTagId)
-                                    );
-                                    const checkOutPerson = checkOutRecord ? checkOutRecord.checkOutPerson : 'N/A';
+                                    // Find the corresponding check-out record to get the check-out person
 
                                     return (
                                         <TableRow key={`${index}-${assetIndex}`}>
@@ -404,7 +401,7 @@ export default function CheckInPage() {
                                             <TableCell>{asset.name}</TableCell>
                                             <TableCell>{asset.description}</TableCell>
                                             <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
-                                            <TableCell>{checkOutPerson}</TableCell>
+                                            <TableCell>{checkIn.checkOutPerson}</TableCell>
                                         </TableRow>
                                     );
                                 })
