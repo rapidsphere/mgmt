@@ -291,6 +291,44 @@ export default function CheckInPage() {
                     Next
                   </Button>
                 </div>
+
+                                <Card>
+                <CardHeader>
+                    <CardTitle>Checked-out Assets</CardTitle>
+                    <CardDescription>List of assets that have been checked out.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Asset Tag ID</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Description</TableHead>
+                                <TableHead>Check-in Date</TableHead>
+                                <TableHead>Check-out Person</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {checkedOutAssets && Array.isArray(checkedOutAssets) ? checkedOutAssets.map((checkIn, index) => (
+                                 Array.isArray(checkIn.assets) ? (
+                                checkIn.assets.map((asset: any, assetIndex: number) => {
+
+                                    return (
+                                        <TableRow key={`${index}-${assetIndex}`}>
+                                            <TableCell>{asset.assetTagId}</TableCell>
+                                            <TableCell>{asset.name}</TableCell>
+                                            <TableCell>{asset.description}</TableCell>
+                                            <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
+                                            <TableCell>{checkIn.checkOutPerson}</TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                                ) : null
+                            )) : null}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
               </div>
               <div className="flex justify-end space-x-2">
                 <Button variant="primary" onClick={handleAddToList}>Add to List</Button>
@@ -371,43 +409,8 @@ export default function CheckInPage() {
                 </DialogContent>
             </Dialog>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Checked-out Assets</CardTitle>
-                    <CardDescription>List of assets that have been checked out.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Asset Tag ID</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Description</TableHead>
-                                <TableHead>Check-in Date</TableHead>
-                                <TableHead>Check-out Person</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {checkedOutAssets && Array.isArray(checkedOutAssets) ? checkedOutAssets.map((checkIn, index) => (
-                                 Array.isArray(checkIn.assets) ? (
-                                checkIn.assets.map((asset: any, assetIndex: number) => {
 
-                                    return (
-                                        <TableRow key={`${index}-${assetIndex}`}>
-                                            <TableCell>{asset.assetTagId}</TableCell>
-                                            <TableCell>{asset.name}</TableCell>
-                                            <TableCell>{asset.description}</TableCell>
-                                            <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
-                                            <TableCell>{checkIn.checkOutPerson}</TableCell>
-                                        </TableRow>
-                                    );
-                                })
-                                ) : null
-                            )) : null}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
     </div>
   );
 }
+
