@@ -73,6 +73,7 @@ export default function CheckInPage() {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
     const [checkInOpen, setCheckInOpen] = useState(false); // State for the check-in dialog
+    const [checkedOutAssets, setCheckedOutAssets] = useState<any[]>([]);
 
   const form = useForm<CheckInFormValues>({
     resolver: zodResolver(checkInFormSchema),
@@ -88,6 +89,12 @@ export default function CheckInPage() {
     if (storedAssets) {
       setAssets(JSON.parse(storedAssets));
     }
+
+     // Load checked out assets from local storage on component mount
+     const storedCheckedOutAssets = localStorage.getItem('checkedOutAssets');
+     if (storedCheckedOutAssets) {
+         setCheckedOutAssets(JSON.parse(storedCheckedOutAssets));
+     }
   }, []);
 
   const handleCheckboxChange = (assetTagId: string) => {
@@ -122,8 +129,28 @@ export default function CheckInPage() {
 
     const handleSubmitCheckIn = async (values: CheckInFormValues) => {
         console.log('Check-in values:', values);
-        // Handle the check-in submission here, e.g., save to local storage, etc.
+
+         // Retrieve the selected assets based on selectedAssetIds
+         const selectedAssetsDetails = assets.filter(asset => selectedAssets.includes(asset.assetTagId));
+
+        // Combine check-in details and selected assets into a single object
+        const checkInRecord = {
+            ...values,
+            assets: selectedAssetsDetails,
+        };
+
+        // Update checkedOutAssets with the new check-in record
+        const updatedCheckedOutAssets = [...checkedOutAssets, checkInRecord];
+
+         // Save checkedOutAssets to local storage
+         localStorage.setItem('checkedOutAssets', JSON.stringify(updatedCheckedOutAssets));
+
+         // Update the state with the new check-in record
+         setCheckedOutAssets(updatedCheckedOutAssets);
+
         setCheckInOpen(false);
+        setSelectedAssets([]);
+        alert('Asset checked in successfully!');
     };
 
   return (
@@ -330,6 +357,39 @@ export default function CheckInPage() {
                     </Form>
                 </DialogContent>
             </Dialog>
+
+             <Card>
+                <CardHeader>
+                    <CardTitle>Checked-out Assets</CardTitle>
+                    <CardDescription>List of assets that have been checked out.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Asset Tag ID</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Description</TableHead>
+                                <TableHead>Check-out Date</TableHead>
+                                <TableHead>Check-out Person</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {checkedOutAssets.map((checkIn, index) => (
+                                checkIn.assets.map((asset: any, assetIndex: number) => (
+                                    <TableRow key={`${index}-${assetIndex}`}>
+                                        <TableCell>{asset.assetTagId}</TableCell>
+                                        <TableCell>{asset.name}</TableCell>
+                                        <TableCell>{asset.description}</TableCell>
+                                        <TableCell>{checkIn.checkInDate ? format(checkIn.checkInDate, 'dd/MM/yyyy') : 'N/A'}</TableCell>
+                                        <TableCell>{checkIn.checkInPerson}</TableCell>
+                                    </TableRow>
+                                ))
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
     </div>
   );
 }

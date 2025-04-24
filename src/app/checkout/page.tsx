@@ -70,6 +70,8 @@ export default function CheckOutPage() {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
     const [checkOutOpen, setCheckOutOpen] = useState(false); // State for the check-out dialog
+     const [checkOutDetails, setCheckOutDetails] = useState<CheckOutFormValues | null>(null);
+
 
   const form = useForm<CheckOutFormValues>({
     resolver: zodResolver(checkOutFormSchema),
@@ -119,8 +121,22 @@ export default function CheckOutPage() {
 
     const handleSubmitCheckOut = async (values: CheckOutFormValues) => {
         console.log('Check-out values:', values);
-        // Handle the check-out submission here, e.g., save to local storage, etc.
+
+        // Set the check-out details in local state
+        setCheckOutDetails(values);
+
+        // Store checked out assets and details in local storage
+        const selectedAssetsDetails = assets.filter(asset => selectedAssets.includes(asset.assetTagId));
+        const checkOutRecord = {
+            ...values,
+            assets: selectedAssetsDetails,
+        };
+
+        localStorage.setItem('checkedOutAssets', JSON.stringify(checkOutRecord));
+
         setCheckOutOpen(false);
+         setSelectedAssets([]);
+        alert('Asset checked out successfully!');
     };
 
   return (
@@ -330,4 +346,3 @@ export default function CheckOutPage() {
     </div>
   );
 }
-
