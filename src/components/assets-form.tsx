@@ -73,10 +73,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="name"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Name *</FormLabel>
+            <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Name *</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset name" className="border border-black" {...field} />
+                <Input placeholder="Enter asset name" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,10 +86,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="description"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Description *</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Description *</FormLabel>
               <FormControl>
-                <Textarea placeholder="Enter asset description" className="border border-black" {...field} />
+                <Textarea placeholder="Enter asset description" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,10 +99,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="assetTagId"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Asset Tag ID *</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Asset Tag ID *</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset tag ID" className="border border-black" {...field} />
+                <Input placeholder="Enter asset tag ID" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,10 +112,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="purchasedFrom"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Purchased From</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Purchased From</FormLabel>
               <FormControl>
-                <Input placeholder="Enter vendor" className="border border-black" {...field} />
+                <Input placeholder="Enter vendor" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -125,15 +125,15 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="purchaseDate"
           render={({field}) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Purchase Date</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Purchase Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant={'outline'}
                       className={cn(
-                        'w-[240px] pl-3 text-left font-normal',
+                        'w-[240px] pl-3 text-left font-normal col-span-3',
                         !field.value && 'text-muted-foreground'
                       )}
                     >
@@ -164,10 +164,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="brand"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Brand</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Brand</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset brand" className="border border-black" {...field} />
+                <Input placeholder="Enter asset brand" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -177,10 +177,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="model"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Model</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Model</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset model" className="border border-black" {...field} />
+                <Input placeholder="Enter asset model" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -190,10 +190,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="serialNo"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Serial No</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Serial No</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset serial number" className="border border-black" {...field} />
+                <Input placeholder="Enter asset serial number" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -203,10 +203,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="cost"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Cost</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Cost</FormLabel>
               <FormControl>
-                <Input placeholder="Enter asset cost" className="border border-black" {...field} />
+                <Input placeholder="Enter asset cost" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -216,10 +216,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="status"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Status</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Status</FormLabel>
               <Select>
-                 <SelectTrigger className="w-[180px] border border-black">
+                 <SelectTrigger className="w-[180px] border border-black col-span-3">
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -240,10 +240,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           control={form.control}
           name="assetPhoto"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Asset Photo</FormLabel>
+             <FormItem className="grid grid-cols-4 items-center">
+              <FormLabel className="text-right">Asset Photo</FormLabel>
               <FormControl>
-                <Input type="file" className="border border-black" {...field} />
+                <Input type="file" className="border border-black col-span-3" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
