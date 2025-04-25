@@ -7,12 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {Wrench, DollarSign} from 'lucide-react';
+import {Wrench} from 'lucide-react';
 import {format} from 'date-fns';
 import dynamic from 'next/dynamic';
-import {cn} from '@/lib/utils';
 import {useEffect, useState} from 'react';
-import {ShoppingCart} from 'lucide-react';
 
 const PieChartComponent = dynamic(() => import('recharts').then(mod => mod.PieChart), {
   ssr: false,
