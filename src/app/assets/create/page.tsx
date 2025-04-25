@@ -52,8 +52,8 @@ export default function AssetsCreatePage() {
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+    <div className="container mx-auto py-10 flex justify-center">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 w-3/4">
         <h1 className="text-2xl font-semibold mb-4 text-center">Asset Details</h1>
         <AssetsFormComponent onSubmit={handleSubmit} />
       </div>
