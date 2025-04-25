@@ -93,7 +93,7 @@ export default function Home() {
               <CardTitle>Assets to be returned (overdue)</CardTitle>
               <CardDescription>Details of assets that are overdue.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 border border-border rounded-md">
               <ul>
                 {overdueAssets.map((asset, index) => (
                   <li key={index}>
@@ -115,7 +115,7 @@ export default function Home() {
               <CardTitle>Assets under repair</CardTitle>
               <CardDescription>Details of assets that are under repair.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 border border-border rounded-md">
               <ul>
                 {underRepairAssets.map((asset, index) => (
                   <li key={index}>
@@ -132,3 +132,4 @@ export default function Home() {
     </div>
   );
 }
+
