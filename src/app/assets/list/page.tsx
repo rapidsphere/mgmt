@@ -48,8 +48,8 @@ interface Asset {
   description: string;
   brand: string;
   purchaseDate: string;
-  cost: number;
-  status: 'Active' | 'Under Repair' | 'Retired' | 'Sold Out' | 'Scrapped';
+  cost: string;
+  status: string;
   assetPhoto: string; // Add assetPhoto field
 }
 
@@ -70,8 +70,8 @@ const assetFormSchema = z.object({
   purchaseDate: z.date().optional(),
   cost: z.string().refine((value) => !isNaN(Number(value)), {
     message: "Cost must be a valid number.",
-  }).transform((value) => Number(value)),
-  status: z.enum(['Active', 'Under Repair', 'Retired', 'Sold Out', 'Scrapped']),
+  }).transform((value) => String(value)),
+  status: z.string(),
   assetPhoto: z.string().optional(), // Add assetPhoto field
 })
 
@@ -370,3 +370,4 @@ export default function AssetsListPage() {
     </div>
   );
 }
+
