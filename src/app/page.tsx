@@ -86,11 +86,8 @@ export default function Home() {
 
   return (
     <div className="container mx-auto py-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
-        </div>
-
-        <div className="flex flex-col gap-6">
+      <div className="flex flex-row gap-4">
+        <div className="w-1/2">
           <Card className="h-48">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle>Assets to be returned (overdue)</CardTitle>
@@ -110,7 +107,9 @@ export default function Home() {
               </ul>
             </CardContent>
           </Card>
+        </div>
 
+        <div className="w-1/2">
           <Card className="h-48">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle>Assets under repair</CardTitle>
@@ -133,4 +132,3 @@ export default function Home() {
     </div>
   );
 }
-
