@@ -74,7 +74,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="name"
           render={({field}) => (
             <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Name *</FormLabel>
+              <FormLabel className="text-right mr-2">Name *</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset name" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -87,7 +87,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="description"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Description *</FormLabel>
+              <FormLabel className="text-right mr-2">Description *</FormLabel>
               <FormControl>
                 <Textarea placeholder="Enter asset description" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -100,7 +100,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="assetTagId"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Asset Tag ID *</FormLabel>
+              <FormLabel className="text-right mr-2">Asset Tag ID *</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset tag ID" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -113,7 +113,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="purchasedFrom"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Purchased From</FormLabel>
+              <FormLabel className="text-right mr-2">Purchased From</FormLabel>
               <FormControl>
                 <Input placeholder="Enter vendor" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -126,7 +126,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="purchaseDate"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Purchase Date</FormLabel>
+              <FormLabel className="text-right mr-2">Purchase Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -165,7 +165,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="brand"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Brand</FormLabel>
+              <FormLabel className="text-right mr-2">Brand</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset brand" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -178,7 +178,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="model"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Model</FormLabel>
+              <FormLabel className="text-right mr-2">Model</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset model" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -191,7 +191,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="serialNo"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Serial No</FormLabel>
+              <FormLabel className="text-right mr-2">Serial No</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset serial number" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -204,7 +204,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="cost"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Cost</FormLabel>
+              <FormLabel className="text-right mr-2">Cost</FormLabel>
               <FormControl>
                 <Input placeholder="Enter asset cost" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -217,7 +217,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="status"
           render={({ field }) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Status</FormLabel>
+              <FormLabel className="text-right mr-2">Status</FormLabel>
               <Select>
                  <SelectTrigger className="w-[180px] border border-black col-span-3">
                   <SelectValue placeholder="Select Status" />
@@ -241,7 +241,7 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
           name="assetPhoto"
           render={({field}) => (
              <FormItem className="grid grid-cols-4 items-center">
-              <FormLabel className="text-right">Asset Photo</FormLabel>
+              <FormLabel className="text-right mr-2">Asset Photo</FormLabel>
               <FormControl>
                 <Input type="file" className="border border-black col-span-3" {...field} />
               </FormControl>
@@ -254,4 +254,3 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
     </Form>
   );
 }
-
