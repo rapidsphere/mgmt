@@ -1,4 +1,3 @@
-'use client'
 
 import {
   Table,
@@ -49,7 +48,7 @@ interface Asset {
   brand: string;
   purchaseDate: string;
   cost: number;
-  status: 'Active' | 'Inactive' | 'Maintenance';
+  status: 'Active' | 'Under Repair' | 'Retired' | 'Sold Out' | 'Scrapped';
   assetPhoto: string; // Add assetPhoto field
 }
 
@@ -71,7 +70,7 @@ const assetFormSchema = z.object({
   cost: z.string().refine((value) => !isNaN(Number(value)), {
     message: "Cost must be a valid number.",
   }).transform((value) => Number(value)),
-  status: z.enum(['Active', 'Inactive', 'Maintenance']),
+  status: z.enum(['Active', 'Under Repair', 'Retired', 'Sold Out', 'Scrapped']),
   assetPhoto: z.string().optional(), // Add assetPhoto field
 })
 
@@ -150,7 +149,7 @@ export default function AssetsListPage() {
   };
 
   const filteredAssets = assetsList.filter(asset => {
-    const searchStr = `${asset.assetTagId} ${asset.name} ${asset.description} ${asset.brand} ${asset.purchaseDate} ${asset.status}`.toLowerCase();
+    const searchStr = `${asset.assetTagId} ${asset.name} ${asset.description} ${asset.brand} ${asset.purchaseDate} ${asset.cost} ${asset.status}`.toLowerCase();
     return searchStr.includes(searchQuery.toLowerCase());
   });
 
@@ -336,8 +335,10 @@ export default function AssetsListPage() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectItem value="Active">Active</SelectItem>
-                          <SelectItem value="Inactive">Inactive</SelectItem>
-                          <SelectItem value="Maintenance">Maintenance</SelectItem>
+                          <SelectItem value="Under Repair">Under Repair</SelectItem>
+                          <SelectItem value="Retired">Retired</SelectItem>
+                          <SelectItem value="Sold Out">Sold Out</SelectItem>
+                          <SelectItem value="Scrapped">Scrapped</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>

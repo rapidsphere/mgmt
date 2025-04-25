@@ -38,7 +38,7 @@ const assetSchema = z.object({
   model: z.string().optional(),
   serialNo: z.string().optional(),
   cost: z.string().optional(),
-  status: z.enum(['Active', 'Inactive', 'Maintenance']).optional(),
+  status: z.enum(['Active', 'Under Repair', 'Retired', 'Sold Out', 'Scrapped']).optional(),
   assetPhoto: z.string().optional(), // Add assetPhoto field
 });
 
@@ -225,8 +225,10 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="Active">Active</SelectItem>
-                    <SelectItem value="Inactive">Inactive</SelectItem>
-                    <SelectItem value="Maintenance">Maintenance</SelectItem>
+                    <SelectItem value="Under Repair">Under Repair</SelectItem>
+                    <SelectItem value="Retired">Retired</SelectItem>
+                    <SelectItem value="Sold Out">Sold Out</SelectItem>
+                    <SelectItem value="Scrapped">Scrapped</SelectItem>
                   </SelectGroup>
                 </SelectContent>
                </Select>
@@ -252,3 +254,4 @@ export default function AssetsFormComponent({onSubmit}: AssetsFormComponentProps
     </Form>
   );
 }
+
