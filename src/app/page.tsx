@@ -59,9 +59,9 @@ export default function Home() {
     assetsList.forEach(asset => {
       if (asset.status === 'Active') {
         data[0].value++;
-      } else if (asset.status === 'Maintenance') {
+      } else if (asset.status === 'Under Repair') {
         data[1].value++;
-      } else {
+      } else if (asset.status === 'Retired' || asset.status === 'Sold Out' || asset.status === 'Scrapped') {
         data[2].value++;
       }
     });
@@ -132,4 +132,3 @@ export default function Home() {
     </div>
   );
 }
-
