@@ -27,7 +27,12 @@ export function NewMenu({className}: NewMenuProps) {
   ];
 
   return (
-    <nav className={cn('bg-blue-100 p-4 flex justify-between items-center', className)}>
+    <nav
+      className={cn(
+        'bg-blue-100 p-4 flex justify-between items-center',
+        className
+      )}
+    >
       <ul className="flex space-x-4">
         {menuItems.map(item => (
           <li key={item.href}>
