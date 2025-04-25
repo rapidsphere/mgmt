@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable'; // Import jspdf-autotable to register the plugin
+import autoTable from 'jspdf-autotable'; // Import the autotable plugin correctly
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useState, useEffect } from 'react';
@@ -37,7 +37,7 @@ export default function ReportPage() {
     });
 
     // Dynamically set the height of the header row
-    (doc as any).autoTable({
+    autoTable(doc, { // Use autoTable directly
       head: [col],
       body: rows,
       didParseCell: function(data: any) {
