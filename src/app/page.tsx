@@ -86,7 +86,7 @@ export default function Home() {
     <div className="container mx-auto py-4">
       <div className="flex flex-row gap-4">
         <div className="w-1/2">
-          <Card className="h-48 w-full">
+          <Card className="w-full">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle>Assets to be returned (overdue)</CardTitle>
               <CardDescription>Details of assets that are overdue.</CardDescription>
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
 
         <div className="w-1/2">
-          <Card className="h-48 w-full">
+          <Card className="w-full">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle>Assets under repair</CardTitle>
               <CardDescription>Details of assets that are under repair.</CardDescription>
@@ -130,4 +130,3 @@ export default function Home() {
     </div>
   );
 }
-
