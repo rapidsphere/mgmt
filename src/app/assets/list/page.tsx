@@ -1,3 +1,4 @@
+'use client'
 
 import {
   Table,
@@ -369,4 +370,3 @@ export default function AssetsListPage() {
     </div>
   );
 }
-
