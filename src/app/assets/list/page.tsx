@@ -186,7 +186,7 @@ export default function AssetsListPage() {
               <TableCell className="border border-black">{asset.name}</TableCell>
               <TableCell className="border border-black">{asset.description}</TableCell>
               <TableCell className="border border-black">{asset.brand}</TableCell>
-              <TableCell className="border border-black">{asset.purchaseDate}</TableCell>
+              <TableCell className="border border-black">{asset.purchaseDate ? format(new Date(asset.purchaseDate), 'dd/MM/yyyy') : 'N/A'}</TableCell>
                <TableCell className="border border-black">{asset.cost}</TableCell>
               <TableCell className="border border-black">{asset.status}</TableCell>
               <TableCell className="border border-black">
