@@ -1,7 +1,12 @@
 'use client';
 
-import {Calendar} from '@/components/ui/calendar';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {Wrench, DollarSign} from 'lucide-react';
 import {format} from 'date-fns';
 import dynamic from 'next/dynamic';
@@ -83,15 +88,6 @@ export default function Home() {
     <div className="container mx-auto py-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Asset Calendar Dashboard</CardTitle>
-              <CardDescription>View asset maintenance and renewal dates.</CardDescription>
-            </CardHeader>
-            <CardContent className="p-3">
-              <Calendar />
-            </CardContent>
-          </Card>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -137,3 +133,4 @@ export default function Home() {
     </div>
   );
 }
+
