@@ -90,7 +90,7 @@ export default function Home() {
         <div className="lg:col-span-2">
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <Card className="h-48">
             <CardHeader className="flex flex-col space-y-1.5 p-4">
               <CardTitle>Assets to be returned (overdue)</CardTitle>
